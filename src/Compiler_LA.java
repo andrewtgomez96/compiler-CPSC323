@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.regex.*;
 
 public class Compiler_LA {
 
@@ -35,7 +36,15 @@ public class Compiler_LA {
     }
 
     public Token lexer(String lexeme){
-
+        boolean isRealNumber(lexeme){
+        return str.matches("[\-\d]\d+\.\d+|\d+\.\d+");
+    }
+        boolean isInteger(lexeme){
+        return str.matches("[\-]\d+|\d+");
+    }
+        boolean isIdentifier(lexeme){
+        return str.matches("\b([A-Za-z][A-Za-z0-9_]*)\b");
+    }
         //switch case for separators
         switch(lexeme){
             case "(":
