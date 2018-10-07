@@ -1,0 +1,16 @@
+[* TEST CASE 3: this is comment for this sample code which
+   converts  Fahrenheit into Celcius *]
+
+$$
+
+	int count = 0;
+	int aMeaninglessNumber = 0;
+	
+	boolean is100x = true;
+
+	while(is100x){
+		count = 2 * 3;
+	}
+
+	aMeaninglessNumber = count * 2322222; 
+$$

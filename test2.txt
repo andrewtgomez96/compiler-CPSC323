@@ -1,0 +1,18 @@
+[* TEST CASE 2: this is comment for this sample code which
+   converts  Fahrenheit into Celcius *]
+
+function multiply (xA : int, yB : int)
+{
+           return xA * yB;
+}
+
+$$
+	int xA, yB;
+	
+	xA = 5;
+	yA = 1.32;
+
+	int zC = multiply(xA , yB);
+
+	put(zC);
+$$

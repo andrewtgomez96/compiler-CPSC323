@@ -63,7 +63,6 @@ public class main {
 
                 parseSeparatorOperator(lexeme);
 
-            //System.out.println(separatedLexemes.size());
             for(String lexemeOpSep: separatedLexemes) {
                 thisToken = compiler.lexer(lexemeOpSep);
                 System.out.println(thisToken);
@@ -71,20 +70,18 @@ public class main {
                 writer.newLine();
             }
         }
+
         writer.flush();
         writer.close();
     }
 
     public static void parseSeparatorOperator(String lexeme){
         separatedLexemes.clear();
-        int lexemeCounter = 0;
         StringBuilder lexemeHolder = new StringBuilder();
         boolean charSepOp = false;
 
         for(int i = 0; i < lexeme.length(); i++) {
             charSepOp = false;
-
-            //System.out.println(lexeme.charAt(i));
 
             for (char separatorOp : separatorsAndOps) {
                 if (lexeme.charAt(i) == separatorOp) {

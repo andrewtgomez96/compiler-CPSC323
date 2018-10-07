@@ -16,10 +16,10 @@ public class FSMReal {
         possStates = new ArrayList<>();
         acceptStates = new ArrayList<>();
 
+        possStates.add(0);
         possStates.add(1);
         possStates.add(2);
         possStates.add(3);
-        possStates.add(4);
 
         acceptStates.add(3);
         firstState = 1;
