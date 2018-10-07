@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class main {
 
-    public static final char[] separatorsAndOps = { '(', ')', '{', '}', '[', ']', ',', ';', '.', ':', '=', '+', '-', '/', '*', '>', '<', '|' };
+    public static final char[] separatorsAndOps = { '(', ')', '{', '}', '[', ']', ',', ';', ':', '=', '+', '-', '/', '*', '>', '<', '|' };
     public static final String[] dubOps = { "=<", "=>", "^=", "==" };
     public static ArrayList<String> separatedLexemes = new ArrayList<>();
 

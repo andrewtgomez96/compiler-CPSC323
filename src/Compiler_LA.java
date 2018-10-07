@@ -128,7 +128,21 @@ public class Compiler_LA {
                 return new Token(Type.OPERATOR, lexeme);
         }
 
-        return new Token(Type.INVALID, lexeme);
+        FSMInteger fsmInt = new FSMInteger();
+        FSMReal fsmReal = new FSMReal();
+        FSMIdentifier fsmId = new FSMIdentifier();
+
+        if(fsmInt.isInteger(lexeme)){
+            return new Token(Type.INTEGER, lexeme);
+        }
+        else if(fsmReal.isReal(lexeme)){
+            return new Token(Type.REAL, lexeme);
+        }
+        //else if(fsmId.isIdentifier()){
+         //   return new Token(Type.IDENTIFIER, lexeme);
+       // }
+        else
+            return new Token(Type.INVALID, lexeme);
     }
 
     //move removal of comments here later on
