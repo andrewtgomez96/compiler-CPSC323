@@ -22,11 +22,6 @@ public class FSMIdentifier {
         possStates.add(2);
         possStates.add(3);
         possStates.add(4);
-        possStates.add(5);
-        possStates.add(6);
-        possStates.add(7);
-        possStates.add(8);
-        possStates.add(9);
 
         acceptStates.add(4);
         acceptStates.add(3);
@@ -38,6 +33,8 @@ public class FSMIdentifier {
         Integer currState = firstState;
         char currCharacter;
         Integer nextState;
+
+        if(lexeme.length() == 1 && Character.isLetter(lexeme.charAt(0))) return true;
 
         for(int i = 0; i < lexeme.length(); i++){
             currCharacter = lexeme.charAt(i);

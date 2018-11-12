@@ -2,33 +2,49 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.regex.*;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 public class main {
 
-    public static final char[] separatorsAndOps = { '(', ')', '{', '}', '[', ']', ',', ';', ':', '=', '+', '-', '/', '*', '>', '<', '|' };
-    public static final String[] dubOps = { "=<", "=>", "^=", "==" };
+    public static final char[] separatorsAndOps = { '(', ')', '{', '}', '[', ']', ',', ';', ':', '=', '+', '-', '/', '*', '>', '<', '|', '^' };
+    public static final HashSet<String> dubOps = new HashSet<>();
     public static ArrayList<String> separatedLexemes = new ArrayList<>();
+    public static ArrayList<Compiler_LA.Token> allLexemes = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-
+        initDubOps();
         BufferedWriter writer =  new BufferedWriter( new FileWriter("output.txt"));
         writer.write("Token" + "\t\t\t" + "Lexeme");
         writer.newLine();
 
-        File file = new File("test.txt");
+        //HERE ARE THE THREE LINES I ADDED TO TAKE IN FILE FROM USER
+        System.out.print("Please input the filename that you want to test in the directory \nExample: test.txt\n:");
+        Scanner readInFile = new Scanner(System.in);
+        String fileName = readInFile.next();
+
+
+        File file = new File(fileName);
         Scanner input = new Scanner(file);
 
+
+        //init local vars
         String lexeme = "", preLexeme = "";
         boolean isComment = false;
-        int commStart, commEnd;
+        int commStart, commEnd, lineNum = 1;
 
-        Compiler_LA compiler = new Compiler_LA();
+        //init local parser vars
+        String parserHolder = "";
+
+        //instantiate lexer class object in main
+        Compiler_LA Compiler = new Compiler_LA();
         Compiler_LA.Token thisToken;
 
-        //compiler.removeComments(input);
+        //instantiate parser class object in main
+        Compiler_Parser Parser = new Compiler_Parser();
+
+
         while(input.hasNext()){
             lexeme = input.next();
-
+            if (input.hasNext(System.lineSeparator()) ) {lineNum++; System.out.println("A NEW LINE"); continue;}
             //ignore comments comments
             if(lexeme.contains("[*")) {
                 commStart = lexeme.indexOf("[*");
@@ -51,11 +67,16 @@ public class main {
                 if(!preLexeme.isEmpty()) {
                     parseSeparatorOperator(preLexeme);
                     for(String lexemeOpSep: separatedLexemes) {
-                        thisToken = compiler.lexer(lexemeOpSep);
+                        //CALL TO LEXER ON PRELEXEME HERE
+                        thisToken = Compiler.lexer(lexemeOpSep, lineNum);
+                        //add token to universal program list of ordered lexemes
+                        allLexemes.add(thisToken);
+
                         preLexeme = "";
-                        System.out.println(thisToken);
-                        writer.write(thisToken.toString());
-                        writer.newLine();
+                        //THIS IS WHERE OLD PRINT HAPPENED FOR PROJ 1
+                        //System.out.println(thisToken);
+                       // writer.write(thisToken.toString());
+                       // writer.newLine();
                     }
                 }
             }
@@ -64,17 +85,38 @@ public class main {
                 parseSeparatorOperator(lexeme);
 
             for(String lexemeOpSep: separatedLexemes) {
-                thisToken = compiler.lexer(lexemeOpSep);
-                System.out.println(thisToken);
-                writer.write(thisToken.toString());
-                writer.newLine();
+                //CALL TO LEXER HERE
+                thisToken = Compiler.lexer(lexemeOpSep, lineNum);
+                //add token to universal program list of ordered lexemes
+                allLexemes.add(thisToken);
+                //THIS IS WHERE OLD PRINT HAPPENED FOR PROJ 1
+                //System.out.println(thisToken);
+                //writer.write(thisToken.toString());
+                //writer.newLine();
             }
+        }
+
+        for(int i = 0; i < allLexemes.size() - 1; i++) {
+            //CALL PARSER HERE
+            if(i == 0){
+                parserHolder = Parser.parse(allLexemes.get(i), allLexemes.get(i), allLexemes.get(i + 1));
+            } else {
+                parserHolder = Parser.parse(allLexemes.get(i - 1), allLexemes.get(i), allLexemes.get(i + 1));
+            }
+            //I think this print works have not tested and not sure
+            System.out.println(allLexemes.get(i));
+            writer.write(allLexemes.get(i).toString());
+            writer.newLine();
+            System.out.println(parserHolder);
+            writer.write(parserHolder);
+            writer.newLine();
         }
 
         writer.flush();
         writer.close();
     }
 
+    //function that allows for special case of operator or separator
     public static void parseSeparatorOperator(String lexeme){
         separatedLexemes.clear();
         StringBuilder lexemeHolder = new StringBuilder();
@@ -90,8 +132,18 @@ public class main {
                         separatedLexemes.add(lexemeHolder.toString());
                         lexemeHolder.setLength(0);
                     }
-                    separatedLexemes.add(String.valueOf(separatorOp));
-                    break;
+                    //if is for double operator being one lexeme and else runs for any single operator
+                    if( i + 1 < lexeme.length() && isValidDubOp(lexeme.charAt(i), lexeme.charAt(i+1))) {
+                        lexemeHolder.append(String.valueOf(lexeme.charAt(i)));
+                        lexemeHolder.append(String.valueOf(lexeme.charAt(i+1)));
+                        separatedLexemes.add(lexemeHolder.toString());
+                        lexemeHolder.setLength(0);
+                        i++;
+                        break;
+                    } else {
+                        separatedLexemes.add(String.valueOf(separatorOp));
+                        break;
+                    }
                 }
             }
 
@@ -103,6 +155,31 @@ public class main {
         if(lexemeHolder.length() > 0) {
             separatedLexemes.add(lexemeHolder.toString());
         }
+    }
+
+    public static boolean isValidDubOp(Character firstChar, Character secondChar) {
+        StringBuilder combineOps = new StringBuilder();
+        boolean isValid = false;
+
+        combineOps.append(firstChar);
+        combineOps.append(secondChar);
+
+        if(dubOps.contains(combineOps.toString())) {
+            isValid = true;
+        }
+
+        return isValid;
+    }
+
+    public static void initDubOps() {
+        dubOps.add("=<");
+        dubOps.add("=>");
+        dubOps.add("^=");
+        dubOps.add("==");
+        dubOps.add("+=");
+        dubOps.add("-=");
+        dubOps.add("*=");
+        dubOps.add("/=");
     }
 
 }

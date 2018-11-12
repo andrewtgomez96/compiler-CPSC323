@@ -1,0 +1,17 @@
+[* TEST CASE 2 *]
+
+function multiply (xA : int, yB : int)
+{
+           return xA * yB;
+}
+
+$$
+	int xA, yB;
+	
+	xA = 5;
+	yA = 1.32;
+
+	int zC = multiply(xA , yB);
+
+	put(zC);
+$$
