@@ -15,7 +15,6 @@ public class Compiler_LA {
         private Type token;
         private String  lexeme;
         private Integer lineNumber;
-        private ArrayList<Type> expectedToken;
 
         Token(Type token, String lexeme, Integer lineNumber){
             this.token = token;
@@ -37,9 +36,6 @@ public class Compiler_LA {
             this.lineNumber = lineNumber;
         }
         public Integer getLineNumber() { return this.lineNumber; }
-
-        public void addExpectedToken(Type token) { expectedToken.add(token); }
-        public ArrayList getExpectedToken() { return expectedToken; }
 
         @Override
         public String toString(){
@@ -84,8 +80,6 @@ public class Compiler_LA {
             case "else":
                 return new Token(Type.KEYWORD, lexeme, lineNum);
             case "ifend":
-                return new Token(Type.KEYWORD, lexeme, lineNum);
-            case "do":
                 return new Token(Type.KEYWORD, lexeme, lineNum);
             case "function":
                 return new Token(Type.KEYWORD, lexeme, lineNum);
@@ -139,12 +133,7 @@ public class Compiler_LA {
                 return new Token(Type.OPERATOR, lexeme, lineNum);
             case "==":
                 return new Token(Type.OPERATOR, lexeme, lineNum);
-            case "&&":
-                return new Token(Type.OPERATOR, lexeme, lineNum);
-            case "+=":
-                return new Token(Type.OPERATOR, lexeme, lineNum);
-            case "-=":
-                return new Token(Type.OPERATOR, lexeme, lineNum);
+
         }
 
         FSMInteger fsmInt = new FSMInteger();

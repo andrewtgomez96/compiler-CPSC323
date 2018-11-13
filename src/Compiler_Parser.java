@@ -13,160 +13,13 @@ public class Compiler_Parser {
         ParserState state = ParserState.ERROR;
         StringBuilder outputforTrio = new StringBuilder();
 
-        switch (currToken.getToken()) {
-            case IDENTIFIER:
-                if (preToken.getLexeme().equals("function")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("return")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("int") || preToken.getLexeme().equals("boolean") || preToken.getLexeme().equals("real")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("-")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("+")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("*")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("/")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(",")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                } else if (preToken.getLexeme().equals("=")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(">") || preToken.getLexeme().equals("<")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("(") || preToken.getLexeme().equals(")")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                }
-                break;
-            case REAL:
-                if (preToken.getLexeme().equals("return")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("int") || preToken.getLexeme().equals("boolean") || preToken.getLexeme().equals("real")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("-")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("+")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("*")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("/")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(",")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                } else if (preToken.getLexeme().equals("=")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(">") || preToken.getLexeme().equals("<")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("(") || preToken.getLexeme().equals(")")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                }
-                break;
-            case INTEGER:
-                if (preToken.getLexeme().equals("return")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("int") || preToken.getLexeme().equals("boolean") || preToken.getLexeme().equals("real")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                } else if (preToken.getLexeme().equals("-")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("+")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("*")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("/")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(",")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                } else if (preToken.getLexeme().equals("=")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals(">") || preToken.getLexeme().equals("<")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                } else if (preToken.getLexeme().equals("(") || preToken.getLexeme().equals(")")) {
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                }
-                break;
-            case KEYWORD:
-                currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                break;
-            case SEPARATOR:
-                if(preToken.getToken().equals("REAL") || preToken.getToken().equals("INTEGER")){
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                }
-                else if (preToken.getToken().equals("IDENTIFIER")){
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.KEYWORD);
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                }
-                else if (preToken.getToken().equals("OPERATOR")){
-                    currToken.addExpectedToken(Compiler_LA.Type.REAL);
-                    currToken.addExpectedToken(Compiler_LA.Type.INTEGER);
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                }
-                else if (preToken.getToken().equals("KEYWORD")){
-                    currToken.addExpectedToken(Compiler_LA.Type.REAL);
-                    currToken.addExpectedToken(Compiler_LA.Type.INTEGER);
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-
-                }
-                else if (preToken.getToken().equals("SEPERATOR")){
-                    currToken.addExpectedToken(Compiler_LA.Type.REAL);
-                    currToken.addExpectedToken(Compiler_LA.Type.INTEGER);
-                    currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                    currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-                    currToken.addExpectedToken(Compiler_LA.Type.OPERATOR);
-                }
-                break;
-            case OPERATOR:
-                currToken.addExpectedToken(Compiler_LA.Type.REAL);
-                currToken.addExpectedToken(Compiler_LA.Type.INTEGER);
-                currToken.addExpectedToken(Compiler_LA.Type.IDENTIFIER);
-                currToken.addExpectedToken(Compiler_LA.Type.SEPARATOR);
-
-                break;
-        }
-
-        ArrayList<Compiler_LA.Type> expected = currToken.getExpectedToken();
-        if (!expected.contains(postToken.getToken())){
-            error(currToken);
-            return null;
-        }
-
         // IDENTIFIER, KEYWORD, INTEGER, REAL, OPERATOR, SEPARATOR, INVALID
         //utilize past, current and future prediction to associate trio of lexemes to production rules
         //If any lexeme does not fulfill a production rule for its current position then it is deemed invalid and sent to the error function
         switch(currToken.getToken()) {
             case IDENTIFIER:
                 if (preToken.getLexeme().equals("function")){
-                    outputforTrio.append("<Function Definitions> -> <Function> <Function Definitions'>\n" + "<Function> -> function <Identifier> ( <Opt Parameter List> )  <Opt Declaration List>  <Body> \n");
+                    outputforTrio.append("<Function Definitions> -> <Function><Function Definitions'>\n" + "<Function> -> function <Identifier> ( <Opt Parameter List> )  <Opt Declaration List>  <Body> \n");
                 } else if (preToken.getLexeme().equals("return")) {
                     outputforTrio.append( "<Statement> -> <Return>\n" + "<Return> -> return <Expression>\n");
                 } else if(preToken.getLexeme().equals("int") || preToken.getLexeme().equals("boolean") || preToken.getLexeme().equals("real")){
@@ -196,7 +49,7 @@ public class Compiler_Parser {
                 else if(postToken.getLexeme().equals("=") ){
                     outputforTrio.append("<Statement>-> <Assign>\n" + "<Assign> -><Identifier> = <Expression>;\n");
                 } else {
-                    error(currToken);
+                    error(currToken, expectedToken);
                 }
                 break;
             case INTEGER:
@@ -209,11 +62,11 @@ public class Compiler_Parser {
                 } else if(preToken.getLexeme().equals("/")){
                     outputforTrio.append("<Term'> -> /<Factor><Term'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Integer>\n");
                 } else if(preToken.getLexeme().equals(">") || preToken.getLexeme().equals("<")){
-                    outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Integer>\n");
+                    outputforTrio.append("<Condition> -> <Expression><Relop><Expression>\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Integer>\n");
                 } else if(preToken.getLexeme().equals("=")){
                     outputforTrio.append("<Assign> -> <Identifier> = <Expression>;\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Integer>\n");
                 } else {
-                    error(currToken);
+                    error(currToken, expectedToken);
                 }
                 break;
             case REAL:
@@ -230,51 +83,165 @@ public class Compiler_Parser {
                 } else if(preToken.getLexeme().equals("=")){
                     outputforTrio.append("<Assign> -> <Identifier> = <Expression>;\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Real>\n");
                 } else {
-                    error(currToken);
+                    error(currToken, expectedToken);
                 }
                 break;
             case OPERATOR:
-                if(preToken.getToken().equals("Identifier")) {
-                    outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Real>\n");
-                }
-                else if(preToken.getToken().equals("Identifier")) {
-                    outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Real>\n");
-                }
-                else if(preToken.getToken().equals("Identifier")) {
-                    outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Real>\n");
-                }
-                else {
-                    error(currToken);
-                }
-            case KEYWORD:
-                if(preToken.getToken().equals("")) {
-                    outputforTrio.append("");
-                } else {
-                    error(currToken);
+                if(currToken.getLexeme().equals("-") || currToken.getLexeme().equals("+")){
+                    //according to rules we need to check for all primary
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.REAL || preToken.getToken() == Compiler_LA.Type.INTEGER || preToken.getLexeme().equals("true") || preToken.getLexeme().equals("false") || preToken.getLexeme().equals("(")) {
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false") || postToken.getLexeme().equals("(")){
+                        //pre and post follow same rules so we passed the - or + check
+                            if(currToken.getLexeme().equals("-")) {
+                                outputforTrio.append("<Expression> -> <Term><Expression'>\n" + "<Expression'> -> -<Term><Expression'>\n");
+                            } else {
+                                outputforTrio.append("<Expression> -> <Term><Expression'>\n" + "<Expression'> -> +<Term><Expression'>\n");
+                            }
+                        } else {
+                            error(currToken, expectedToken);
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals("*") || currToken.getLexeme().equals("/")){
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.REAL || preToken.getToken() == Compiler_LA.Type.INTEGER || preToken.getLexeme().equals("true") || preToken.getLexeme().equals("false") || preToken.getLexeme().equals("(")) {
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false") || postToken.getLexeme().equals("(")){
+                            //pre and post follow same rules so we passed the * or / check
+                            if(currToken.getLexeme().equals("/")) {
+                                outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Term'> -> /<Factor><Term'>\n");
+                            } else {
+                                outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Term'> -> *<Factor><Term'>\n");
+                            }
+                        } else {
+                            error(currToken, expectedToken);
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals(">") || currToken.getLexeme().equals("<") || currToken.getLexeme().equals("=<") || currToken.getLexeme().equals("=>") || currToken.getLexeme().equals("^=") || currToken.getLexeme().equals("==")){
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.REAL || preToken.getToken() == Compiler_LA.Type.INTEGER || preToken.getLexeme().equals("true") || preToken.getLexeme().equals("false") || preToken.getLexeme().equals("(")) {
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false") || postToken.getLexeme().equals("(")){
+                            //pre and post follow same rules so we passed the relop check
+                            if(currToken.getLexeme().equals(">")) {
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> >\n");
+                            } else if(currToken.getLexeme().equals("<")){
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> <\n");
+                            } else if(currToken.getLexeme().equals("=<")){
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> =<\n");
+                            } else if(currToken.getLexeme().equals("=>")){
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> =>\n");
+                            } else if(currToken.getLexeme().equals("^=")){
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> ^=\n");
+                            } else if(currToken.getLexeme().equals("==")){
+                                outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Relop> -> ==\n");
+                            }
+                        } else {
+                            error(currToken, expectedToken);
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals("=")){
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false") || postToken.getLexeme().equals("(")){
+                            outputforTrio.append("<Assign> -> <Identifier> = <Expression>");
+                        } else {
+                            error(currToken, expectedToken);
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+
                 }
                 break;
+            case KEYWORD:
+                //do stuff here
+                break;
             case SEPARATOR:
-                if(preToken.getLexeme().equals("Identifier")) {
-                    outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Real>\n");
-                } else {
-                    error(currToken);
+                if (currToken.getLexeme().equals("(")) {
+                    if(preToken.getLexeme().equals("put")) {
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false")){
+                            outputforTrio.append("<Statement> -> <Print>\n" + "<Print> -> put(<Expression>);\n");
+                        }
+                    } else if(preToken.getLexeme().equals("get")) {
+                        if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                            outputforTrio.append("<Statement> -> <Scan>\n" + "   <Scan> -> get(<IDs>);");
+                        }
+                    } else if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER && postToken.getToken() == Compiler_LA.Type.IDENTIFIER) {
+                        outputforTrio.append("<Factor> -> <Primary>\n" + "<Primary> -> <Identifier>(<IDs>)\n");
+                    } else if(preToken.getLexeme().equals("+") || preToken.getLexeme().equals("-") || preToken.getLexeme().equals("*") || preToken.getLexeme().equals("/")) {
+                        outputforTrio.append("<Factor> -> <Primary>\n" + "<Primary> -> (<Expression>)\n");
+                    } else if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER) {
+                        if( postToken.getLexeme().equals(")")) {   //I BELIEVE THIS PART STILL NEEDS TO BE ADJUSTED FOR FUNCTIONS THAT HAVE PARAMETERS
+                            outputforTrio.append("<Function Definitions> -> <Function><Function Definitions'>\n" + "<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>\n");
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+
+                } else if(currToken.getLexeme().equals(")")) {
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.REAL || preToken.getToken() == Compiler_LA.Type.INTEGER || preToken.getLexeme().equals("true") || preToken.getLexeme().equals("false")){
+                        outputforTrio.append("<Factor> -> <Primary>\n" + "<Primary> -> (<Expression>)\n");
+                    } else if(preToken.getLexeme().equals("int") || preToken.getLexeme().equals("boolean")|| preToken.getLexeme().equals("real") || preToken.getLexeme().equals("(")){
+                        outputforTrio.append("<Function Definitions> -> <Function><Function Definitions'>\n" + "<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>\n");
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals("{")) {
+                    if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.KEYWORD  ) {
+                        if(preToken.getLexeme().equals(")")) {
+                            outputforTrio.append("<Function> -> function<Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>\n" + "<Body> -> {<Statement List>}\n");
+                        } else {
+                            outputforTrio.append("<Statement> -> <Compound>\n" + "<Compound> -> {<Statement List>}\n");
+                        }
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals("}")) {   //NOT SURE
+
+                } else if(currToken.getLexeme().equals(";")) {   //NOT SURE HOW TO DO THIS
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER) {
+
+                    } else if(preToken.getLexeme().equals(")")) {
+
+                    } else if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.REAL || preToken.getToken() == Compiler_LA.Type.INTEGER || preToken.getLexeme().equals("true") || preToken.getLexeme().equals("false")){
+
+                    }
+                } else if(currToken.getLexeme().equals(":")) {
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER && (postToken.getLexeme().equals("boolean") || postToken.getLexeme().equals("int") || postToken.getLexeme().equals("real"))) {
+                            outputforTrio.append("<Parameter List> -> <Parameter>\n" + "<Parameter> -> <IDs>:<Qualifier>\n");
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+                } else if(currToken.getLexeme().equals(",")) {
+                    if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.IDENTIFIER) {
+                        outputforTrio.append("<IDs> -> <Identifier><IDs'>\n" + "<IDs'> -> ,<Identifier><IDs'>");
+                    } else {
+                        error(currToken, expectedToken);
+                    }
+
+                } else if(currToken.getLexeme().equals("$$")) {  //need to check for end and begin
+                    outputforTrio.append("<Rat18F> -> <Opt Function Definitions> $$ <Opt Declaration List> <Statement List> $$\n");
                 }
                 break;
             case INVALID:
-                error(currToken);
+                error(currToken, expectedToken);
                 break;
         }
+
+
+
         return outputforTrio.toString();
     }
 
-    private void error(Compiler_LA.Token errToken) {
+    private void error(Compiler_LA.Token errToken, Compiler_LA.Token expectedToken) {
 
-        ArrayList<Compiler_LA.Type> expected = errToken.getExpectedToken();
-        String error = "ERROR\n" + "Token: " + errToken.getToken() + "\nLexeme: " + errToken.getLexeme() + "\nExpected Tokens: ";
+        // print error
+        //System.err.print("ERROR: " + error.getType());
+        System.err.print(" at line " + errToken.getLineNumber() );
+        System.err.println("; Expected " + expectedToken.getToken());
 
-        for ( Compiler_LA.Type token : expected ){
-            error += token;
-        }
-        System.out.println(error);
+        //errorToken = token; // set error token to prevent cascading
+       // errors++; // increment error counter
     }
 }

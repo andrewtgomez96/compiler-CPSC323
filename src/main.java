@@ -17,14 +17,14 @@ public class main {
         writer.newLine();
 
         //HERE ARE THE THREE LINES I ADDED TO TAKE IN FILE FROM USER
-        //System.out.print("Please input the filename that you want to test in the directory \nExample: test.txt\n:");
+        System.out.print("Please input the filename that you want to test in the directory \nExample: test.txt\n:");
         Scanner readInFile = new Scanner(System.in);
         String fileName = readInFile.next();
 
-        File file = new File("test.txt");
+
+        File file = new File(fileName);
         Scanner input = new Scanner(file);
 
-        Scanner getLine = new Scanner(file);
 
         //init local vars
         String lexeme = "", preLexeme = "";
@@ -41,11 +41,11 @@ public class main {
         //instantiate parser class object in main
         Compiler_Parser Parser = new Compiler_Parser();
 
+
         while(input.hasNext()){
             lexeme = input.next();
-            String line = getLine.nextLine();
-            String endOfLine = line.substring(line.lastIndexOf(" ")+1);
-
+            if (input.hasNext(System.lineSeparator()) ) {lineNum++; System.out.println("A NEW LINE"); continue;}
+            //ignore comments comments
             if(lexeme.contains("[*")) {
                 commStart = lexeme.indexOf("[*");
                 preLexeme = lexeme.substring(0, commStart);
@@ -81,6 +81,7 @@ public class main {
                 }
             }
 
+
                 parseSeparatorOperator(lexeme);
 
             for(String lexemeOpSep: separatedLexemes) {
@@ -93,24 +94,14 @@ public class main {
                 //writer.write(thisToken.toString());
                 //writer.newLine();
             }
-
-            if (endOfLine.equals(lexeme)){
-                lineNum++;
-            }
         }
 
         for(int i = 0; i < allLexemes.size() - 1; i++) {
             //CALL PARSER HERE
             if(i == 0){
                 parserHolder = Parser.parse(allLexemes.get(i), allLexemes.get(i), allLexemes.get(i + 1));
-                if (parserHolder.equals(null)){
-                    return;
-                }
             } else {
                 parserHolder = Parser.parse(allLexemes.get(i - 1), allLexemes.get(i), allLexemes.get(i + 1));
-                if (parserHolder.equals(null)){
-                    return;
-                }
             }
             //I think this print works have not tested and not sure
             System.out.println(allLexemes.get(i));
