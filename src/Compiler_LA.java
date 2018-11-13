@@ -15,6 +15,7 @@ public class Compiler_LA {
         private Type token;
         private String  lexeme;
         private Integer lineNumber;
+        private ArrayList<Type> expectedToken;
 
         Token(Type token, String lexeme, Integer lineNumber){
             this.token = token;
@@ -36,6 +37,9 @@ public class Compiler_LA {
             this.lineNumber = lineNumber;
         }
         public Integer getLineNumber() { return this.lineNumber; }
+
+        public void addExpectedToken(Type token) { expectedToken.add(token); }
+        public ArrayList getExpectedToken() { return expectedToken; }
 
         @Override
         public String toString(){
