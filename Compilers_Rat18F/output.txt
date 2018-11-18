@@ -1,0 +1,196 @@
+Token			Lexeme
+KEYWORD			function
+<Function Definitions> -> <Function><Function Definitions Prime>
+<Function> -> function  <Identifier>(<Opt Parameter List>)<Opt Declaration List><Body>
+
+IDENTIFIER			multiply
+<Function Definitions> -> <Function><Function Definitions'>
+<Function> -> function <Identifier> ( <Opt Parameter List> )  <Opt Declaration List>  <Body> 
+
+SEPARATOR			(
+<Factor> -> <Primary>
+<Primary> -> <Identifier>(<IDs>)
+
+IDENTIFIER			xA
+<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
+
+SEPARATOR			:
+<Parameter List> -> <Parameter><Parameter List'>
+<Parameter> -> <IDs>:<Qualifier>
+
+KEYWORD			int
+<Parameter> -> <IDs>:<Qualifier>
+<Qualifier> -> int
+
+SEPARATOR			,
+<IDs> -> <Identifier><IDs'>
+<IDs'> -> ,<IDs>
+
+IDENTIFIER			yB
+<IDs'>  ->  ,<IDs>
+
+SEPARATOR			:
+<Parameter List> -> <Parameter><Parameter List'>
+<Parameter> -> <IDs>:<Qualifier>
+
+KEYWORD			int
+<Parameter> -> <IDs>:<Qualifier>
+<Qualifier> -> int
+
+SEPARATOR			)
+<Function Definitions> -> <Function><Function Definitions'>
+<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
+
+SEPARATOR			{
+<Function> -> function<Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
+<Body> -> {<Statement List>}
+
+KEYWORD			return
+<Statement> -> <Return>
+<Return> -> return<Expression>;
+
+IDENTIFIER			xA
+<Statement> -> <Return>
+<Return> -> return <Expression>
+
+OPERATOR			*
+<Term> -> <Factor><Term'>
+<Term'> -> *<Factor><Term'>
+
+IDENTIFIER			yB
+<Term'> -> *<Factor><Term'>
+<Factor> -> <Primary>
+<Primary> -> <Identifier>
+
+SEPARATOR			;
+<Statement> -> <Assign>
+<Assign> -> <Identifier>=<Expression>;
+
+SEPARATOR			}
+<Statement> -> <Compound>
+<Compound> -> {<Statement List>}
+
+SEPARATOR			$$
+<Rat18F> -> <Opt Function Definitions> $$ <Opt Declaration List> <Statement List> $$
+
+KEYWORD			int
+<Declaration> -> <Qualifier> <IDs>
+<Qualifier> -> int
+
+IDENTIFIER			xA
+<Decleration List> -> <Decleration>;<Declaration List'>
+<Decleration> -> <int | boolean | real > <IDs>
+<IDs> -> <Identifier><IDs'>
+<IDs'> -> ,<IDs>
+
+SEPARATOR			,
+<IDs> -> <Identifier><IDs'>
+<IDs'> -> ,<IDs>
+
+IDENTIFIER			yB
+<IDs'>  ->  ,<IDs>
+
+SEPARATOR			;
+<Statement> -> <Assign>
+<Assign> -> <Identifier>=<Expression>;
+
+IDENTIFIER			xA
+<Statement>-> <Assign>
+<Assign> -><Identifier> = <Expression>;
+
+OPERATOR			=
+<Assign> -> <Identifier> = <Expression>
+
+INTEGER			5
+<Assign> -> <Identifier> = <Expression>;
+<Expression> -> <Term><Expression'>
+<Factor> -> <Primary>
+<Primary> -> <Integer>
+
+SEPARATOR			;
+<Statement> -> <Assign>
+<Assign> -> <Identifier>=<Expression>;
+
+IDENTIFIER			yA
+<Statement>-> <Assign>
+<Assign> -><Identifier> = <Expression>;
+
+OPERATOR			=
+<Assign> -> <Identifier> = <Expression>
+
+REAL			1.32
+<Assign> -> <Identifier> = <Expression>;
+<Expression> -> <Term><Expression'>
+<Factor> -> <Primary>
+<Primary> -> <Real>
+
+SEPARATOR			;
+<Statement> -> <Assign>
+<Assign> -> <Identifier>=<Expression>;
+
+KEYWORD			int
+<Declaration> -> <Qualifier> <IDs>
+<Qualifier> -> int
+
+IDENTIFIER			zC
+<Decleration List> -> <Decleration>;<Declaration List'>
+<Decleration> -> <int | boolean | real> <IDs>
+<IDs> -> <Identifier><IDs'>
+
+OPERATOR			=
+<Assign> -> <Identifier> = <Expression>
+
+IDENTIFIER			multiply
+<Assign> -> <Identifier> = <Expression>;
+<Expression> -> <Term><Expression'>
+<Factor> -> <Primary>
+<Primary> -> <Identifier>
+
+SEPARATOR			(
+<Factor> -> <Primary>
+<Primary> -> <Identifier>(<IDs>)
+
+IDENTIFIER			xA
+<Primary> -> <Identifier>(<IDs>)<IDs> -> <Identifier><IDs Prime>
+<IDs Prime> -> ,<IDs>
+
+SEPARATOR			,
+<IDs> -> <Identifier><IDs'>
+<IDs'> -> ,<IDs>
+
+IDENTIFIER			yB
+<IDs'>  ->  ,<IDs>
+
+SEPARATOR			)
+<Factor> -> <Primary>
+<Primary> -> (<Expression>)
+
+SEPARATOR			;
+<Statement> -> <Print>
+<Print> -> put(<Expression>);
+
+KEYWORD			put
+<Statement> -> <Print>
+<Print> -> put(<Expression>);
+
+SEPARATOR			(
+<Statement> -> <Print>
+<Print> -> put(<Expression>);
+
+IDENTIFIER			zC
+<Primary> -> <Identifier>(<IDs>)
+<IDs> -> <Identifier><IDs Prime>
+<IDs Prime> -> ɛ
+
+SEPARATOR			)
+<Factor> -> <Primary>
+<Primary> -> (<Expression>)
+
+SEPARATOR			;
+<Statement> -> <Print>
+<Print> -> put(<Expression>);
+
+SEPARATOR			$$
+<Rat18F> -> <Opt Function Definitions> $$ <Opt Declaration List> <Statement List> $$
+
+Your program parsed with a total of: 0 errors
