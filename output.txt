@@ -1,208 +1,32 @@
-Token			Lexeme
-SEPARATOR			$$
-<Rat18F> -> <Opt Function Definitions> $$ <Opt Declaration List> <Statement List> $$
 
-KEYWORD			int
-<Declaration> -> <Qualifier> <IDs>
-<Qualifier> -> int
+ASSEMBLY CODE
+1     PUSHI      0
+2     POPM      5002
+3     PUSHI      1
+4     POPM      5000
+5     STDIN
+6     POPM      5001
+7     LABEL
+8     PUSHM      5000
+9     PUSHM      5001
+10     LES
+11     JUMPZ      21
+12     PUSHM      5002
+13     PUSHM      5000
+14     ADD
+15     POPM      5002
+16     PUSHM      5000
+17     PUSHI      1
+18     ADD
+19     POPM      5000
+20     JUMP      7
+21     PUSHM      5002
+22     PUSHM      5001
+23     ADD
+24     STDOUT
 
-IDENTIFIER			i
-<Decleration List> -> <Decleration>;<Declaration List'>
-<Decleration> -> <int | boolean | real > <IDs>
-<IDs> -> <Identifier><IDs'>
-<IDs'> -> ,<IDs>
-
-SEPARATOR			,
-<IDs> -> <Identifier><IDs'>
-<IDs'> -> ,<IDs>
-
-IDENTIFIER			max
-<IDs'>  ->  ,<IDs>
-
-SEPARATOR			,
-<IDs> -> <Identifier><IDs'>
-<IDs'> -> ,<IDs>
-
-IDENTIFIER			sum
-<IDs'>  ->  ,<IDs>
-
-SEPARATOR			;
-<Statement> -> <Assign>
-<Assign> -> <Identifier>=<Expression>;
-
-IDENTIFIER			sum
-<Statement>-> <Assign>
-<Assign> -><Identifier> = <Expression>;
-
-OPERATOR			=
-<Assign> -> <Identifier> = <Expression>
-
-INTEGER			0
-<Assign> -> <Identifier> = <Expression>;
-<Expression> -> <Term><Expression'>
-<Factor> -> <Primary>
-<Primary> -> <Integer>
-
-SEPARATOR			;
-<Statement> -> <Assign>
-<Assign> -> <Identifier>=<Expression>;
-
-IDENTIFIER			i
-<Statement>-> <Assign>
-<Assign> -><Identifier> = <Expression>;
-
-OPERATOR			=
-<Assign> -> <Identifier> = <Expression>
-
-INTEGER			1
-<Assign> -> <Identifier> = <Expression>;
-<Expression> -> <Term><Expression'>
-<Factor> -> <Primary>
-<Primary> -> <Integer>
-
-SEPARATOR			;
-<Statement> -> <Assign>
-<Assign> -> <Identifier>=<Expression>;
-
-KEYWORD			get
-<Statement> -> <Scan>
-<Scan> -> get(<IDs>);
-
-SEPARATOR			(
-<Statement> -> <Scan>
-   <Scan> -> get(<IDs>);
-IDENTIFIER			max
-<Primary> -> <Identifier>(<IDs>)
-<IDs> -> <Identifier><IDs Prime>
-<IDs Prime> -> ɛ
-
-SEPARATOR			)
-<Factor> -> <Primary>
-<Primary> -> (<Expression>)
-
-SEPARATOR			;
-<Statement> -> <Print>
-<Print> -> put(<Expression>);
-
-KEYWORD			while
-<Statement> -> <While>
-<While> ->  while(<Condition>) <Statement> whileend
-
-SEPARATOR			(
-<Condition> -> <Expression><Relop><Expression>
-
-IDENTIFIER			i
-<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
-
-OPERATOR			<
-<Condition> -> <Expression> <Relop> <Expression>
-<Relop> -> <
-
-IDENTIFIER			max
-<Condition> -> <Expression> <Relop> <Expression>
-<Expression> -> <Term><Expression'>
-<Factor> -> <Primary>
-<Primary> -> <Identifier>
-
-SEPARATOR			)
-<Factor> -> <Primary>
-<Primary> -> (<Expression>)
-
-SEPARATOR			{
-<Function> -> function<Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
-<Body> -> {<Statement List>}
-
-IDENTIFIER			sum
-<Statement>-> <Assign>
-<Assign> -><Identifier> = <Expression>;
-
-OPERATOR			=
-<Assign> -> <Identifier> = <Expression>
-
-IDENTIFIER			sum
-<Assign> -> <Identifier> = <Expression>;
-<Expression> -> <Term><Expression'>
-<Factor> -> <Primary>
-<Primary> -> <Identifier>
-
-OPERATOR			+
-<Expression> -> <Term><Expression'>
-<Expression'> -> +<Term><Expression'>
-
-IDENTIFIER			i
-<Expression'> -> +<Term><Expression'>
-<Term> -> <Factor><Term'>
-<Factor> -> <Primary>
-<Primary> -> <Identifier>
-
-SEPARATOR			;
-<Statement> -> <Assign>
-<Assign> -> <Identifier>=<Expression>;
-
-IDENTIFIER			i
-<Statement>-> <Assign>
-<Assign> -><Identifier> = <Expression>;
-
-OPERATOR			=
-<Assign> -> <Identifier> = <Expression>
-
-IDENTIFIER			i
-<Assign> -> <Identifier> = <Expression>;
-<Expression> -> <Term><Expression'>
-<Factor> -> <Primary>
-<Primary> -> <Identifier>
-
-OPERATOR			+
-<Expression> -> <Term><Expression'>
-<Expression'> -> +<Term><Expression'>
-
-INTEGER			1
-<Expression'> -> +<Term><Expression'>
-<Term> -> <Factor><Term'>
-<Factor> -> <Primary>
-<Primary> -> <Integer>
-
-SEPARATOR			;
-<Statement> -> <Assign>
-<Assign> -> <Identifier>=<Expression>;
-
-SEPARATOR			}
-<Statement> -> <Compound>
-<Compound> -> {<Statement List>}
-
-KEYWORD			whileend
-<While> ->  while(<Condition>) <Statement> whileend
-
-KEYWORD			put
-<Statement> -> <Print>
-<Print> -> put(<Expression>);
-
-SEPARATOR			(
-<Statement> -> <Print>
-<Print> -> put(<Expression>);
-
-IDENTIFIER			sum
-<Function> -> function <Identifier> (<Opt Parameter List>)<Opt Declaration List><Body>
-
-OPERATOR			+
-<Expression> -> <Term><Expression'>
-<Expression'> -> +<Term><Expression'>
-
-IDENTIFIER			max
-<Expression'> -> +<Term><Expression'>
-<Term> -> <Factor><Term'>
-<Factor> -> <Primary>
-<Primary> -> <Identifier>
-
-SEPARATOR			)
-<Factor> -> <Primary>
-<Primary> -> (<Expression>)
-
-SEPARATOR			;
-<Statement> -> <Print>
-<Print> -> put(<Expression>);
-
-SEPARATOR			$$
-<Rat18F> -> <Opt Function Definitions> $$ <Opt Declaration List> <Statement List> $$
-
-Your program parsed with a total of: 0 errors
+SYMBOL TABLE
+Identifier     MemoryLocation      Type
+i     5000      int
+max     5001      int
+sum     5002      int

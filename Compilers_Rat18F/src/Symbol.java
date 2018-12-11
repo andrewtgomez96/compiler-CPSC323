@@ -43,12 +43,17 @@ public class Symbol {
         return false;
     }
 
-    public void printSymbolTable(){
+    public String printSymbolTable(){
+        String result = "";
         System.out.println("SYMBOL TABLE");
+        result += "SYMBOL TABLE";
         System.out.println(" Identifier     MemoryLocation      Type");
+        result += "\nIdentifier     MemoryLocation      Type";
         for (Symbol x : symbolTable){
+            result += "\n" + x.identifier + "     " + x.location + "      " + x.type;
             System.out.println(x.identifier + "     " + x.location + "      " + x.type);
         }
+        return result;
     }
 
 

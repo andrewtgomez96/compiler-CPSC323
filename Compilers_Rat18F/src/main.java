@@ -12,8 +12,8 @@ public class main {
     public static void main(String[] args) throws IOException {
         initDubOps();
         BufferedWriter writer =  new BufferedWriter( new FileWriter("output.txt"));
-        writer.write("Token" + "\t\t\t" + "Lexeme");
-        writer.newLine();
+       // writer.write("Token" + "\t\t\t" + "Lexeme");
+       // writer.newLine();
 
         //HERE ARE THE THREE LINES I ADDED TO TAKE IN FILE FROM USER
         System.out.print("Please input the filename that you want to test in the directory \nExample: test.txt\n:");
@@ -107,6 +107,7 @@ public class main {
             } else {
                 parserHolder = Parser.parse(allLexemes.get(i - 1), allLexemes.get(i), allLexemes.get(i + 1));
             }
+            /*
             //This is where the output format printing occurs
             System.out.println(allLexemes.get(i));
             writer.write(allLexemes.get(i).toString());
@@ -114,25 +115,27 @@ public class main {
             System.out.println(parserHolder);
             writer.write(parserHolder);
             writer.newLine();
+            */
         }
 
         //parse the very last input
         parserHolder = Parser.parse(allLexemes.get(allLexemes.size()-2), allLexemes.get(allLexemes.size() - 1), allLexemes.get(allLexemes.size() - 1));
         System.out.println(allLexemes.get(allLexemes.size()-1));
-        writer.write(allLexemes.get(allLexemes.size()-1).toString());
-        writer.newLine();
-        System.out.println(parserHolder);
-        writer.write(parserHolder);
-        writer.newLine();
+       // writer.write(allLexemes.get(allLexemes.size()-1).toString());
+        //writer.newLine();
+       // System.out.println(parserHolder);
+       // writer.write(parserHolder);
+       // writer.newLine();
 
         //print the number of errors in program
-        System.out.println("Your program parsed with a total of: " + Parser.errors + " errors\n");
-        writer.write("Your program parsed with a total of: ");
-        String errorNum = Integer.toString(Parser.errors);
-        writer.write(errorNum + " errors");
-        writer.newLine();
+       // System.out.println("Your program parsed with a total of: " + Parser.errors + " errors\n");
+       // writer.write("Your program parsed with a total of: ");
+      //  String errorNum = Integer.toString(Parser.errors);
+      //  writer.write(errorNum + " errors");
+      //  writer.newLine();
 
-        Parser.printTables();
+        writer.write(Parser.printTables());
+
 
 
         //close file for proper program shutdown

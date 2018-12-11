@@ -2,14 +2,13 @@
 
 $$
 
-	int count = 0;
-	int aMeaninglessNumber = 0;
+	int count = 1;
+	int aMeaninglessNumber = 10;
 	
-	boolean is100x = true;
 
-	while(is100x){
-		count = 2 * 3;
+	while(count < aMeaninglessNumber){
+		count = count * 3;
 	}
 
-	aMeaninglessNumber = count * 2322222; 
+	put(count);
 $$

@@ -42,19 +42,24 @@ public class Assembly {
         }
     }
 
-    public void printAssemblyTable(){
+    public String printAssemblyTable(){
         int count = 1;
+        String result = "";
         System.out.println("ASSEMBLY CODE");
+        result += "ASSEMBLY CODE";
         for (int i = 0; i < index; i++){
-            if(codeListing[i].address != 0){
+            if(codeListing[i].address != -10){
+                result +="\n" + count + "     " + codeListing[i].instruction + "      " + codeListing[i].address;
                 System.out.println(count + "     " + codeListing[i].instruction + "      " + codeListing[i].address);
             }
             else{
+                result += "\n" + count + "     " + codeListing[i].instruction;
 
                 System.out.println(count + "     " + codeListing[i].instruction);
             }
 
             count++;
         }
+        return result;
     }
 }

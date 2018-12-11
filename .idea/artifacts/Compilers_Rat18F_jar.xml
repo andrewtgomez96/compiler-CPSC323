@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="Compilers_Rat18F:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Compilers_Rat18F_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Compilers_Rat18F.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="Compilers_Rat18F" />
+      </element>
+    </root>
+  </artifact>
+</component>
