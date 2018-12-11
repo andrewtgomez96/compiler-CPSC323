@@ -88,12 +88,16 @@ public class main {
                 thisToken = Compiler.lexer(lexemeOpSep, lineNum);
                 //add token to universal program list of ordered lexemes
                 allLexemes.add(thisToken);
+
+
                 //THIS IS WHERE OLD PRINT HAPPENED FOR PROJ 1
                 //System.out.println(thisToken);
                 //writer.write(thisToken.toString());
                 //writer.newLine();
             }
         }
+
+
 
         //We call the parser on an iteration over the list of all lexemes in the program
         for(int i = 0; i < allLexemes.size() - 1; i++) {
@@ -127,6 +131,9 @@ public class main {
         String errorNum = Integer.toString(Parser.errors);
         writer.write(errorNum + " errors");
         writer.newLine();
+
+        Parser.printTables();
+
 
         //close file for proper program shutdown
         writer.flush();

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="compilers">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Proj_2/compilers.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

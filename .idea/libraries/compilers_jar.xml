@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="compilers_jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Compilers_Rat18F/out/artifacts/compilers_jar/compilers.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Compilers_Rat18F/out/artifacts/compilers_jar/compilers_project_1.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
