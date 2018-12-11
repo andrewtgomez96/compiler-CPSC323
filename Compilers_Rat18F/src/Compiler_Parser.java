@@ -43,6 +43,18 @@ public class Compiler_Parser {
                     else{
                         outputforTrio.append("Error! This identifier, " + currToken.getLexeme() +  ", already exits.");
                     }
+                    if (preToken.getLexeme().equals("=")){
+                        if (postToken.getToken() == Compiler_LA.Type.SEPARATOR){
+                            if(currToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                asmTemp.addCode("PUSHM", symTemp.getLocation(preToken.getLexeme()));
+                            }
+                            else{
+                                asmTemp.addCode("PUSHI", Integer.parseInt(preToken.getLexeme()));
+                            }
+                            asmTemp.addCode("POPM", symTemp.getLocation(save));
+                            save = "";
+                        }
+                    }
                     if (postToken.getLexeme().equals(",")){
                         save = preToken.getLexeme();
                     }
@@ -74,6 +86,7 @@ public class Compiler_Parser {
                     outputforTrio.append("<IDs'>  ->  ,<IDs>\n");
                 } else if(preToken.getLexeme().equals("=")){
                     outputforTrio.append("<Assign> -> <Identifier> = <Expression>;\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Identifier>\n");
+
                 } else if(preToken.getLexeme().equals(">") || preToken.getLexeme().equals("<") ){
                     outputforTrio.append("<Condition> -> <Expression> <Relop> <Expression>\n" + "<Expression> -> <Term><Expression'>\n" + "<Factor> -> <Primary>\n" + "<Primary> -> <Identifier>\n");
                 } else if(preToken.getLexeme().equals("(") || preToken.getLexeme().equals(")") ){
@@ -137,8 +150,40 @@ public class Compiler_Parser {
                         //pre and post follow same rules so we passed the - or + check
                             if(currToken.getLexeme().equals("-")) {
                                 outputforTrio.append("<Expression> -> <Term><Expression'>\n" + "<Expression'> -> -<Term><Expression'>\n");
+                                if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(preToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(preToken.getLexeme()));
+                                }
+
+                                if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(postToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(postToken.getLexeme()));
+                                }
+                                asmTemp.addCode("SUB", 0);
+                                asmTemp.addCode("POPM", symTemp.getLocation(save));
+                                save = "";
                             } else {
                                 outputforTrio.append("<Expression> -> <Term><Expression'>\n" + "<Expression'> -> +<Term><Expression'>\n");
+                                if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(preToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(preToken.getLexeme()));
+                                }
+
+                                if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(postToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(postToken.getLexeme()));
+                                }
+                                asmTemp.addCode("ADD", 0);
+                                asmTemp.addCode("POPM", symTemp.getLocation(save));
+                                save = "";
                             }
                         } else {
                             error(preToken, currToken);
@@ -152,8 +197,42 @@ public class Compiler_Parser {
                             //pre and post follow same rules so we passed the * or / check
                             if(currToken.getLexeme().equals("/")) {
                                 outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Term'> -> /<Factor><Term'>\n");
+
+                                if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(preToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(preToken.getLexeme()));
+                                }
+
+                                if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(postToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(postToken.getLexeme()));
+                                }
+                                asmTemp.addCode("DIV", 0);
+                                asmTemp.addCode("POPM", symTemp.getLocation(save));
+                                save = "";
                             } else {
                                 outputforTrio.append("<Term> -> <Factor><Term'>\n" + "<Term'> -> *<Factor><Term'>\n");
+
+                                if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(preToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(preToken.getLexeme()));
+                                }
+
+                                if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER){
+                                    asmTemp.addCode("PUSHM", symTemp.getLocation(postToken.getLexeme()));
+                                }
+                                else{
+                                    asmTemp.addCode("PUSHI", Integer.parseInt(postToken.getLexeme()));
+                                }
+                                asmTemp.addCode("MUL", 0);
+                                asmTemp.addCode("POPM", symTemp.getLocation(save));
+                                save = "";
                             }
                         } else {
                             error(preToken, currToken);
@@ -273,6 +352,7 @@ public class Compiler_Parser {
                     if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER){
                         if(postToken.getToken() == Compiler_LA.Type.IDENTIFIER || postToken.getToken() == Compiler_LA.Type.REAL || postToken.getToken() == Compiler_LA.Type.INTEGER || postToken.getLexeme().equals("true") || postToken.getLexeme().equals("false") || postToken.getLexeme().equals("(")){
                             outputforTrio.append("<Assign> -> <Identifier> = <Expression>\n");
+                            save = preToken.getLexeme();
                         } else {
                             error(preToken, currToken);
                         }
@@ -346,8 +426,12 @@ public class Compiler_Parser {
                             outputforTrio.append("<Statement> -> <If>\n" + "<If> -> if (<Condition>) <Statement> else <Statement> ifend\n");
                         } else if(currToken.getLexeme().equals("ifend")){
                             outputforTrio.append("<If> -> if (<Condition>) <Statement> else <Statement> ifend\n");
+                            asmTemp.addCode("LABEL", 0);
+                            currentIf = false;
                         } else {
                             outputforTrio.append("<While> ->  while(<Condition>) <Statement> whileend\n");
+                            asmTemp.addCode("JUMP", asmTemp.getIndex("LABEL"));
+                            currentWhile = false;
                         }
                     } else {
                         error(preToken, currToken);
@@ -411,14 +495,6 @@ public class Compiler_Parser {
                 } else if(currToken.getLexeme().equals("}")) {
                     if(preToken.getToken() == Compiler_LA.Type.IDENTIFIER || preToken.getToken() == Compiler_LA.Type.SEPARATOR || preToken.getLexeme().equals("ifend") || preToken.getLexeme().equals("whileend")) {
                         outputforTrio.append("<Statement> -> <Compound>\n" + "<Compound> -> {<Statement List>}\n");
-                        if (preToken.getLexeme().equals("whileend")){
-                            asmTemp.addCode("JUMP", asmTemp.getIndex("LABEL"));
-                            currentWhile = false;
-                        }
-                        else if(preToken.getLexeme().equals("ifend")){
-                            asmTemp.addCode("LABEL", 0);
-                            currentIf = false;
-                        }
 
                     } else {
                         error(preToken, currToken);
@@ -480,7 +556,7 @@ public class Compiler_Parser {
     public void printTables() {
         symTemp.printSymbolTable();
 
-       // asmTemp.checkJumps();
+        asmTemp.checkJumps();
         asmTemp.printAssemblyTable();
     }
 }

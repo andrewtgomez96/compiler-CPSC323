@@ -19,41 +19,39 @@ public class Assembly {
     public int getIndex(String instr) {
         int count = 1;
 
-        for (Assembly x : codeListing){
-            if (x.instruction.equals(instr)){
+        for (int i = 0; i < index; i++){
+            if (codeListing[i].instruction.equals(instr)) {
                 return count;
             }
             count++;
         }
+
         return -5;
     }
 
     public void checkJumps(){
-        int index;
-        for (int i = 0; i < codeListing.length; i++){
+        String jump = "JUMP";
+        String label = "LABEL";
+        for (int i = 0; i < index; i++){
             if (codeListing[i].address == -1){
-                index = getIndex("JUMP");
-                codeListing[i].address = index + 1;
-                System.out.println("This is where i am. " + codeListing[i].address);
-                System.out.println(i);
+                codeListing[i].address = getIndex(jump) + 1;
             }
             else if (codeListing[i].address == -3){
-                codeListing[i].address = getIndex("LABEL");
+                codeListing[i].address = getIndex(label);
             }
         }
     }
 
     public void printAssemblyTable(){
         int count = 1;
-        System.out.println(index+1);
         System.out.println("ASSEMBLY CODE");
-        for (Assembly x : codeListing){
-            if(x.address != 0){
-                System.out.println(count + "     " + x.instruction + "      " + x.address);
+        for (int i = 0; i < index; i++){
+            if(codeListing[i].address != 0){
+                System.out.println(count + "     " + codeListing[i].instruction + "      " + codeListing[i].address);
             }
             else{
 
-                System.out.println(count + "     " + x.instruction);
+                System.out.println(count + "     " + codeListing[i].instruction);
             }
 
             count++;
